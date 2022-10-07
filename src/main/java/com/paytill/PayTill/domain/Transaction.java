@@ -1,5 +1,6 @@
 package com.paytill.PayTill.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="transactions")
-public class Transaction 
+public class Transaction
 
 {
 	private Long transactionId;

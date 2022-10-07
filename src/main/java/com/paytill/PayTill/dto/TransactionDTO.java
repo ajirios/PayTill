@@ -1,6 +1,8 @@
 package com.paytill.PayTill.dto;
 
-public class TransactionDTO 
+import java.io.Serializable;
+
+public class TransactionDTO implements Serializable
 
 {
 	private String userid;

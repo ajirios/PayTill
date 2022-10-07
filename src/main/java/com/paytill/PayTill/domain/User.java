@@ -2,6 +2,7 @@ package com.paytill.PayTill.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class User
 	private String mobileNumber;
 	private String password;
 	private LocalDateTime registrationDate;
-	private List<Transaction> transactions;
+	private List<Transaction> transactions = new ArrayList<>();
 	
 	public User() {}
 
