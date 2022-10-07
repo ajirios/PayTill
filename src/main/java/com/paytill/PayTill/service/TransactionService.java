@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paytill.PayTill.domain.Transaction;
+import com.paytill.PayTill.dto.TransactionDTO;
 import com.paytill.PayTill.repository.TransactionRepository;
 
 @Service
@@ -43,6 +44,13 @@ public class TransactionService
 	
 	{
 		this.transactionRepository.deleteById(transactionId);
+	}
+	
+	public void transfer(TransactionDTO transactionDto)
+	
+	{
+		Transaction transaction = new Transaction();
+		transaction.setAmount(transactionDto.getAmount() / 100.00);
 	}
 	
 }

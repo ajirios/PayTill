@@ -16,9 +16,12 @@ public class Transaction
 
 {
 	private Long transactionId;
+	private String tracking;
+	private String currency;
 	private Double amount;
-	private String business;
-	private String transactionType;
+	private String type;
+	private String route;
+	private String statementdescriptor;
 	private User user;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,30 +49,6 @@ public class Transaction
 		this.amount = amount;
 	}
 	
-	public String getBusiness() 
-	
-	{
-		return business;
-	}
-
-	public void setBusiness(String business) 
-	
-	{
-		this.business = business;
-	}
-
-	public String getTransactionType() 
-	
-	{
-		return transactionType;
-	}
-	
-	public void setTransactionType(String transactionType) 
-	
-	{
-		this.transactionType = transactionType;
-	}
-	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	public User getUser() 
@@ -84,11 +63,80 @@ public class Transaction
 		this.user = user;
 	}
 
+	public String getTracking() 
+	
+	{
+		return tracking;
+	}
+
+	public void setTracking(String tracking) 
+	
+	{
+		this.tracking = tracking;
+	}
+
+	public String getCurrency() 
+	
+	{
+		return currency;
+	}
+
+	public void setCurrency(String currency) 
+	
+	{
+		this.currency = currency;
+	}
+
+	public String getType() 
+	
+	{
+		return type;
+	}
+
+	public void setType(String type) 
+	
+	{
+		this.type = type;
+	}
+
+	public String getRoute() 
+	
+	{
+		return route;
+	}
+
+	public void setRoute(String route) 
+	
+	{
+		this.route = route;
+	}
+
+	public String getStatementdescriptor() 
+	
+	{
+		return statementdescriptor;
+	}
+
+	public void setStatementdescriptor(String statementdescriptor) 
+	
+	{
+		this.statementdescriptor = statementdescriptor;
+	}
+
+	@Override
+	public String toString() 
+	
+	{
+		return "Transaction [transactionId=" + transactionId + ", tracking=" + tracking + ", currency=" + currency
+				+ ", amount=" + amount + ", type=" + type + ", route=" + route + ", statementdescriptor="
+				+ statementdescriptor + ", user=" + user + "]";
+	}
+
 	@Override
 	public int hashCode() 
 	
 	{
-		return Objects.hash(amount, business, transactionId, transactionType, user);
+		return Objects.hash(amount, currency, route, statementdescriptor, tracking, transactionId, type, user);
 	}
 
 	@Override
@@ -102,17 +150,10 @@ public class Transaction
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
-		return Objects.equals(amount, other.amount) && Objects.equals(business, other.business)
-				&& Objects.equals(transactionId, other.transactionId)
-				&& Objects.equals(transactionType, other.transactionType) && Objects.equals(user, other.user);
-	}
-
-	@Override
-	public String toString() 
-	
-	{
-		return "Transaction [transactionId=" + transactionId + ", amount=" + amount + ", business=" + business
-				+ ", transactionType=" + transactionType + ", user=" + user + "]";
+		return Objects.equals(amount, other.amount) && Objects.equals(currency, other.currency)
+				&& Objects.equals(route, other.route) && Objects.equals(statementdescriptor, other.statementdescriptor)
+				&& Objects.equals(tracking, other.tracking) && Objects.equals(transactionId, other.transactionId)
+				&& Objects.equals(type, other.type) && Objects.equals(user, other.user);
 	}
 	
 }
