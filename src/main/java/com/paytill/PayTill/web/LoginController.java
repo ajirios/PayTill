@@ -1,8 +1,11 @@
 package com.paytill.PayTill.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.paytill.PayTill.domain.User;
 
 @Controller
 public class LoginController 
@@ -16,16 +19,24 @@ public class LoginController
 	}
 	
 	@GetMapping("/login")
-	public String getLoginPage()
+	public String getLoginPage(ModelMap modelMap)
 	
 	{
+		modelMap.put("user", new User());
 		return "login";
 	}
 	
 	@PostMapping("/login")
-	public String postLoginPage()
+	public String postLoginPage(User user)
 	
 	{
-		return "redirect:/login";
+		System.out.println("id is " + user);
+		if (user == null || user.getUsername().isBlank() || user.getPassword().isBlank())
+			
+		{
+			return "redirect:/login";
+		}
+		
+		return "redirect:/dashboard";
 	}
 }

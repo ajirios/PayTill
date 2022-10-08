@@ -14,16 +14,16 @@
 <body>
 <div class="container">
 	<div class="login">
-		<form method="POST" action="/dashboard">
+		<form method="POST" action="">
 			<img class="logo" src="assets/PayTill.png" alt="logo" /> &trade;
 			<h1>Log in to your PayTill</h1>
 			<span class="input-label">Phone, email, or username</span>
 			<div>
-				<input type="text" class="username" id="username" name="" value="" placeholder="Phone, email, or username" />
+				<input type="text" class="username" id="username" th:field="${user.username}" name="" value="" placeholder="Phone, email, or username" />
 			</div>
 			<span class="input-label">Password</span>
 			<div>
-				<input type="password" class="password" id="password" name="" value="" placeholder="Password (12 - 24 characters)" />
+				<input type="password" class="password" id="password" th:field="${user.password}" name="" value="" placeholder="Password (12 - 24 characters)" />
 			</div>
 			<div>
 				<input type="submit" class="button" id="button" value="LOG IN" />
