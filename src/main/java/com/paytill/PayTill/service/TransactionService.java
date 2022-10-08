@@ -62,7 +62,7 @@ public class TransactionService
 		transaction.setType(transactionDto.getType());
 		//transaction.setTimestamp(transactionDto.getTimestamp());
 		
-		User user = new User();
+		User user = this.userService.findById(transactionDto.getUserid());
 		transaction.setUser(user);
 		user.getTransactions().add(transaction);
 		this.userService.save(user);

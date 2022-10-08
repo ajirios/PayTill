@@ -29,6 +29,8 @@ public class User
 	private String email;
 	private String mobileNumber;
 	private String password;
+	private Double credit;
+	private String defaultCurrency;
 	private LocalDateTime registrationDate;
 	private List<Transaction> transactions = new ArrayList<>();
 	
@@ -179,6 +181,30 @@ public class User
 		this.password = password;
 	}
 	
+	public Double getCredit() 
+	
+	{
+		return credit;
+	}
+
+	public void setCredit(Double credit) 
+	
+	{
+		this.credit = credit;
+	}
+
+	public String getDefaultCurrency() 
+	
+	{
+		return defaultCurrency;
+	}
+
+	public void setDefaultCurrency(String defaultCurrency) 
+	
+	{
+		this.defaultCurrency = defaultCurrency;
+	}
+
 	@OneToMany(mappedBy="user")
 	public List<Transaction> getTransactions() 
 	
@@ -227,7 +253,8 @@ public class User
 		return "User [userId=" + userId + ", username=" + username + ", title=" + title + ", name=" + name
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", middleName=" + middleName + ", birthDate="
 				+ birthDate + ", email=" + email + ", mobileNumber=" + mobileNumber + ", password=" + password
-				+ ", registrationDate=" + registrationDate + ", transactions=" + transactions + "]";
+				+ ", credit=" + credit + ", defaultCurrency=" + defaultCurrency + ", registrationDate="
+				+ registrationDate + ", transactions=" + transactions + "]";
 	}
 
 }

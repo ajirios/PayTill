@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class TransactionDTO implements Serializable
 
 {
-	private String userid;
+	private Long userid;
 	private String tracking;
 	private String currency;
 	private Long amount;
@@ -20,13 +20,13 @@ public class TransactionDTO implements Serializable
 		
 	}
 
-	public String getUserid() 
+	public Long getUserid() 
 	
 	{
 		return userid;
 	}
 
-	public void setUserid(String userid) 
+	public void setUserid(Long userid) 
 	
 	{
 		this.userid = userid;

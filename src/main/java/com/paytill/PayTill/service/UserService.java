@@ -16,7 +16,7 @@ public class UserService
 	public User findById(Long userId)
 	
 	{
-		return this.userRepository.findById(userId).orElse(null);
+		return this.userRepository.findById(userId).orElse(new User());
 	}
 	
 	public void save(User user)

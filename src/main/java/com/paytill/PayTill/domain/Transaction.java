@@ -1,6 +1,7 @@
 package com.paytill.PayTill.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class Transaction
 	private String type;
 	private String route;
 	private String statementdescriptor;
+	private LocalDateTime timestamp;
 	private User user;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,13 +126,25 @@ public class Transaction
 		this.statementdescriptor = statementdescriptor;
 	}
 
+	public LocalDateTime getTimestamp() 
+	
+	{
+		return timestamp;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) 
+	
+	{
+		this.timestamp = timestamp;
+	}
+
 	@Override
 	public String toString() 
 	
 	{
 		return "Transaction [transactionId=" + transactionId + ", tracking=" + tracking + ", currency=" + currency
 				+ ", amount=" + amount + ", type=" + type + ", route=" + route + ", statementdescriptor="
-				+ statementdescriptor + ", user=" + user + "]";
+				+ statementdescriptor + ", timestamp=" + timestamp + ", user=" + user + "]";
 	}
 
 	@Override

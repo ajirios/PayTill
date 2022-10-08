@@ -28,6 +28,8 @@ public class RegisterController
 	public String postRegister(User user)
 	
 	{
+		user.setCredit(0.00);
+		user.setDefaultCurrency("USD");
 		this.userService.save(user);
 		return "redirect:/dashboard";
 	}
