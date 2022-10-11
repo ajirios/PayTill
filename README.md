@@ -1,2 +1,2 @@
 # PayTill
-Online Payments System - Pay Online, Send &amp; Receive Money
+Powering payments in the developing world.
