@@ -1,2 +1,4 @@
 # PayTill
-Powering payments in the developing world.
+Accept payments via multi-channel (SMS, In-App, e-Transfers).
+
+
