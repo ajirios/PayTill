@@ -1,2 +1,4 @@
 # PayTill
-Online Payments System - Pay Online, Send &amp; Receive Money
+Accept payments via multi-channel (SMS, In-App, e-Transfers).
+
+
