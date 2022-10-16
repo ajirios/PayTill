@@ -19,6 +19,12 @@ public class UserService
 		return this.userRepository.findById(userId).orElse(new User());
 	}
 	
+	public User findByMobileNumber(String phoneNumber)
+	
+	{
+		return this.userRepository.findByMobileNumber(phoneNumber).orElse(null);
+	}
+	
 	public void save(User user)
 	
 	{

@@ -1,12 +1,18 @@
 package com.paytill.PayTill.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +21,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class User 
+public class User implements Serializable
 
 {
+	private static final long serialVersionUID = -3565197518457063604L;
 	private Long userId;
 	private String username;
 	private String title;
@@ -33,6 +40,7 @@ public class User
 	private String defaultCurrency;
 	private LocalDateTime registrationDate;
 	private List<Transaction> transactions = new ArrayList<>();
+	private Set<Authorities> authorities = new HashSet<>();
 	
 	public User() {}
 
@@ -49,6 +57,7 @@ public class User
 		this.userId = userId;
 	}
 
+	@Column(nullable = false, unique = true, length = 64)
 	public String getUsername() 
 	
 	{
@@ -61,6 +70,7 @@ public class User
 		this.username = username;
 	}
 
+	@Column(nullable = false, unique = true, length = 64)
 	public String getEmail() 
 	
 	{
@@ -169,6 +179,7 @@ public class User
 		this.mobileNumber = mobileNumber;
 	}
 
+	@Column(nullable = false, length = 20)
 	public String getPassword() 
 	
 	{
@@ -216,6 +227,19 @@ public class User
 	
 	{
 		this.transactions = transactions;
+	}
+
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE, mappedBy="user")
+	public Set<Authorities> getAuthorities() 
+	
+	{
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authorities> authorities) 
+	
+	{
+		this.authorities = authorities;
 	}
 
 	@Override

@@ -63,6 +63,18 @@ public class TransactionService
 		//transaction.setTimestamp(transactionDto.getTimestamp());
 		
 		User user = this.userService.findById(transactionDto.getUserid());
+		Double balance = user.getCredit();
+		
+		if (transactionDto.getType().equalsIgnoreCase("payment"))
+		{
+			balance += transactionDto.getAmount() / 100.00;
+		}
+		else if (transactionDto.getType().equalsIgnoreCase("charge"))
+		{
+			balance -= transactionDto.getAmount() / 100.00;
+		}
+		
+		user.setCredit(balance);
 		transaction.setUser(user);
 		user.getTransactions().add(transaction);
 		this.userService.save(user);

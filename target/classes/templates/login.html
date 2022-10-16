@@ -4,19 +4,16 @@
 <meta charset="UTF-8">
 <title>Log in to your PayTill</title>
 <link type="text/css" rel="stylesheet" href="css/login.css" />  
-<!--  
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-            -->
 </head>
 <body>
 <div class="container">
 	<div class="login">
-		<form method="POST" action="">
+	<!--  
+		<form method="POST" action="/dashboard">
 			<img class="logo" src="assets/PayTill.png" alt="logo" /> &trade;
 			<h1>Log in to your PayTill</h1>
+			<input type="hidden" name="destination" value="home" />
+			<input type="hidden" name="userId" value="2" />
 			<span class="input-label">Phone, email, or username</span>
 			<div>
 				<input type="text" class="username" id="username" th:field="${user.username}" name="" value="" placeholder="Phone, email, or username" />
@@ -29,6 +26,38 @@
 				<input type="submit" class="button" id="button" value="LOG IN" />
 			</div>
 		</form>
+		-->
+		<form action="" method="post">
+			<img class="logo" src="assets/PayTill.png" alt="logo" /> &trade;
+			<h1>Log in to your PayTill</h1>
+			<input type="hidden" name="userId" value="2" />
+		        <!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
+		        <div th:if="${param.error != null}">
+		            <div>
+		                Failed to login.
+		                <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+		                  Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+		                </div>
+		            </div>
+		        </div>
+		        <!-- the configured LogoutConfigurer#logoutSuccessUrl is /login?logout and contains the query param logout -->
+		        <div th:if="${param.logout != null}">
+		            <div>
+		                You have been logged out.
+		            </div>
+		        </div>
+		        <p>
+		        <label for="username">Username</label>
+		        <input type="text" id="username" name="username"/>
+		        </p>
+		        <p>
+		        <label for="password">Password</label>
+		        <input type="password" id="password" name="password"/>
+		        </p>
+		        <div>
+				<input type="submit" class="button" id="button" value="LOG IN" />
+				</div>
+		 </form>
 		<div>New to PayTill? <a href="register">Register</a></div>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 package com.paytill.PayTill.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ public class RegisterController
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping("/register")
 	public String getRegister(ModelMap modelMap)
 	
@@ -30,7 +34,14 @@ public class RegisterController
 	{
 		user.setCredit(0.00);
 		user.setDefaultCurrency("USD");
+		
+		if (user != null && user.getPassword() != null)
+		{
+			String crypticPassword = passwordEncoder.encode(user.getPassword());
+			user.setPassword(crypticPassword);
+		}
+		
 		this.userService.save(user);
-		return "redirect:/dashboard";
+		return "redirect:/";
 	}
 }

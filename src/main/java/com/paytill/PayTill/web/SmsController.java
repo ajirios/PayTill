@@ -21,6 +21,7 @@ import com.twilio.twiml.messaging.Message;
 
 import com.paytill.PayTill.dto.SmsRequest;
 import com.paytill.PayTill.service.SmsSenderService;
+import com.paytill.PayTill.service.TransactionReceiverService;
 
 @RestController
 @RequestMapping("api/v1/sms")
@@ -29,6 +30,9 @@ public class SmsController
 {
 	@Autowired
 	private SmsSenderService smsSenderService;
+	
+	@Autowired
+	private TransactionReceiverService transactionReceiverService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(SmsController.class);
 	
@@ -46,7 +50,18 @@ public class SmsController
 	{
 		LOGGER.info("keyValuePairs: {}" + map);
 		System.out.println(map.get("Body"));
-		System.out.println(map.get("From"));
+		
+		if (map != null && map.get("Body") != null && map.get("From") != null)
+			
+		{
+			String transactionResult = this.transactionReceiverService.attemptTransaction(map.get("Body").toString(), map.get("From").toString());
+			
+			if (!transactionResult.equalsIgnoreCase("success"))
+			{
+				return "Invalid code. Please check your text formatting.";
+			}
+		}
+		
 		
 		return "Thanks for replying!";
 	}

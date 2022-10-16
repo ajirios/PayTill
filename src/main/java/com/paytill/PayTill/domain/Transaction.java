@@ -14,9 +14,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="transactions")
-public class Transaction
+public class Transaction implements Serializable
 
 {
+	private static final long serialVersionUID = -1525145653563876290L;
 	private Long transactionId;
 	private String tracking;
 	private String currency;

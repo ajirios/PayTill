@@ -2,8 +2,10 @@ package com.paytill.PayTill.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.paytill.PayTill.domain.User;
 
@@ -11,18 +13,19 @@ import com.paytill.PayTill.domain.User;
 public class LoginController 
 
 {
-	@GetMapping("/")
-	public String getRoot()
+	@GetMapping("")
+	public String getRoot(@RequestParam MultiValueMap param)
 	
 	{
-		return "redirect:/login";
+		System.out.println(param);
+		return "redirect:/dashboard";
 	}
 	
 	@GetMapping("/login")
 	public String getLoginPage(ModelMap modelMap)
 	
 	{
-		modelMap.put("user", new User());
+		//modelMap.put("user", new User());
 		return "login";
 	}
 	
@@ -34,7 +37,7 @@ public class LoginController
 		if (user == null || user.getUsername().isBlank() || user.getPassword().isBlank())
 			
 		{
-			return "redirect:/login";
+			return "redirect:/dashboard";
 		}
 		
 		return "redirect:/dashboard";
