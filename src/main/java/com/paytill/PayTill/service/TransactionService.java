@@ -50,7 +50,35 @@ public class TransactionService
 		this.transactionRepository.deleteById(transactionId);
 	}
 	
-	public void transfer(TransactionDTO transactionDto)
+	public String deposit(TransactionDTO transactionDto)
+	
+	{
+		Transaction transaction = new Transaction();
+		transaction.setAmount(transactionDto.getAmount() / 100.00);
+		transaction.setCurrency(transactionDto.getCurrency());
+		transaction.setRoute(transactionDto.getRoute());
+		transaction.setStatementdescriptor(transactionDto.getStatementdescriptor());
+		transaction.setTracking(transactionDto.getTracking());
+		transaction.setType(transactionDto.getType());
+		//transaction.setTimestamp(transactionDto.getTimestamp());
+		
+		User user = this.userService.findById(transactionDto.getUserid());
+		Double balance = user.getCredit();
+		
+		if (transactionDto.getType().equalsIgnoreCase("deposit"))
+		{
+			balance += transactionDto.getAmount() / 100.00;
+		}
+		
+		user.setCredit(balance);
+		transaction.setUser(user);
+		user.getTransactions().add(transaction);
+		this.userService.save(user);
+		this.transactionRepository.save(transaction);
+		return "Transaction successful. Your new balance is $" + balance;
+	}
+	
+	public String transfer(TransactionDTO transactionDto)
 	
 	{
 		Transaction transaction = new Transaction();
@@ -66,6 +94,7 @@ public class TransactionService
 		Double balance = user.getCredit();
 		
 		if (transactionDto.getType().equalsIgnoreCase("payment"))
+			
 		{
 			balance += transactionDto.getAmount() / 100.00;
 		}
@@ -74,11 +103,20 @@ public class TransactionService
 			balance -= transactionDto.getAmount() / 100.00;
 		}
 		
-		user.setCredit(balance);
-		transaction.setUser(user);
-		user.getTransactions().add(transaction);
-		this.userService.save(user);
-		this.transactionRepository.save(transaction);
+		if (balance >= 0.00)
+			
+		{
+			user.setCredit(balance);
+			transaction.setUser(user);
+			user.getTransactions().add(transaction);
+			this.userService.save(user);
+			this.transactionRepository.save(transaction);
+			return "Transaction successful. Your new balance is $" + balance;
+		}
+		else
+		{
+			return "Transaction declined. Insufficient funds. Your balance is currently $" + user.getCredit();
+		}
 	}
 	
 }

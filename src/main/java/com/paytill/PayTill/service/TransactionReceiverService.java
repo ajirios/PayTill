@@ -24,11 +24,46 @@ public class TransactionReceiverService
 	{
 		String message = textMessage.substring(1, textMessage.length() - 1);
 		String mobileNumber = phoneNumber.substring(1, phoneNumber.length() - 1);
-		TransactionDTO chargeTransactionDto = getTransaction(message, mobileNumber);
-		this.transactionService.transfer(chargeTransactionDto);
-		TransactionDTO paymentTransactionDto = getTransaction(message);
-		this.transactionService.transfer(paymentTransactionDto);
-		return "success";
+		String transactionCode = this.getLeadingTransactionCode(textMessage);
+		String result = "success";
+		
+		if (transactionCode != null && transactionCode.equalsIgnoreCase("send"))
+		{
+			TransactionDTO chargeTransactionDto = getTransaction(message, mobileNumber);
+			result = this.transactionService.transfer(chargeTransactionDto);
+			
+			if (result.contains("successful"))
+			{
+				TransactionDTO paymentTransactionDto = getTransaction(message);
+				String recipientAlert = this.transactionService.transfer(paymentTransactionDto);
+			}
+		}
+		else if (transactionCode != null && transactionCode.equalsIgnoreCase("deposit"))
+		{
+			TransactionDTO paymentTransactionDto = getTransaction(message, mobileNumber);
+			paymentTransactionDto.setType("deposit");
+			result = this.transactionService.deposit(paymentTransactionDto);
+		}
+		
+		return result;
+	}
+	
+	public String getLeadingTransactionCode(String textMessage)
+	
+	{
+		if (textMessage.toLowerCase().contains("send") || textMessage.toLowerCase().contains("pay"))
+			
+		{
+			return "send";
+		}
+
+		if (textMessage.toLowerCase().contains("deposit") || textMessage.toLowerCase().contains("load"))
+			
+		{
+			return "deposit";
+		}
+		
+		return null;
 	}
 	
 	public Boolean isValidTransaction(String textMessage)
@@ -122,6 +157,8 @@ public class TransactionReceiverService
 		int amountInteger = 0;
 		boolean spaceFound = false;
 		boolean numberFound = false;
+		
+		textMessage += " ";
 		
 		for (int i = 0; i < textMessage.length() && spaceFound == false; i++)
 			

@@ -56,10 +56,7 @@ public class SmsController
 		{
 			String transactionResult = this.transactionReceiverService.attemptTransaction(map.get("Body").toString(), map.get("From").toString());
 			
-			if (!transactionResult.equalsIgnoreCase("success"))
-			{
-				return "Invalid code. Please check your text formatting.";
-			}
+			return transactionResult;
 		}
 		
 		
