@@ -3,12 +3,14 @@ package com.paytill.PayTill.web;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.paytill.PayTill.domain.User;
 import com.paytill.PayTill.service.UserService;
 
 @Controller
@@ -19,10 +21,19 @@ public class DashboardController
 	private UserService userService;
 	
 	@GetMapping("/dashboard")
-	public String getDashboard(ModelMap modelMap)
+	public String getDashboard(ModelMap modelMap, @AuthenticationPrincipal User user)
 	
 	{
-		modelMap.put("user", this.userService.findById(Long.valueOf(3)));
+		if (user != null && user.getUserId() != null)
+			
+		{
+			modelMap.put("user", this.userService.findById(user.getUserId()));
+		}
+		else
+		{
+			modelMap.put("user", this.userService.findById(Long.valueOf(3)));
+		}
+		
 		return "dashboard";
 	}
 
