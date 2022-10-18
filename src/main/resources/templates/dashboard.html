@@ -13,28 +13,28 @@
 <body>
 <div class="drawer">
 	<div><a href="/dashboard">Account Summary</a></div>
-	<div><a href="/dashboard">Settings</a></div>
+	<div><a href="/dashboard/settings">Settings</a></div>
 	<div><a href="/logout">Logout</a></div>
 </div>
 <div class="content">
 	<div>
 		<div style="font-size:20px;font-weight:bold;">Good afternoon, <span th:text="${user.username}"></span></div>
 		<div style="font-size:30px;font-weight:bold;">Your PayTill Account No. is: #<span th:text="${5337543855L - user.userId}"></span></div>
+		<br />
+		<br />
 		<div>Account Balance: $<span th:text="${user.defaultCurrency}"></span><span th:text="${user.credit}"></span></div>
+		<br />
+		<br />
 		<div>
-			<a href="/dashboard">Deposit</a>
-			<a href="/dashboard">Transfer to Bank</a>
-			<a href="/dashboard">View Transaction History</a>
+			<a href="#">Deposit</a> &nbsp; &nbsp;
+			<a href="#">Transfer to Bank</a> &nbsp; &nbsp;
+			<a href="#">View Transaction History</a>
 		</div>
 	</div>
 </div>
 
 		<form method="POST" action="/dashboard">
-			<img class="logo" src="assets/PayTill.png" alt="logo" /> &trade;
-			<input type="text" th:field="${user.userId}" name="userId" />
-			<div>
-				<input type="submit" class="button" id="button" value="LOG" />
-			</div>
+			<input hidden type="text" th:field="${user.userId}" name="userId" />
 		</form>
 </body>
 </html>
