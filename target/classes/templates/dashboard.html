@@ -12,24 +12,48 @@
 </head>
 <body>
 <div class="drawer">
-	<div><a href="/dashboard">Account Summary</a></div>
-	<div><a href="/dashboard/settings">Settings</a></div>
-	<div><a href="/logout">Logout</a></div>
+	<div class="link current"><a style="text-decoration:inherit;color:inherit;" href="/dashboard">Account Summary</a></div>
+	<div class="link"><a style="text-decoration:inherit;color:inherit;" href="/dashboard/settings">Settings</a></div>
+	<div class="link"><a style="text-decoration:inherit;color:inherit;" href="/logout">Logout</a></div>
 </div>
 <div class="content">
 	<div>
-		<div style="font-size:20px;font-weight:bold;">Good afternoon, <span th:text="${user.username}"></span></div>
-		<div style="font-size:30px;font-weight:bold;">Your PayTill Account No. is: #<span th:text="${5337543855L - user.userId}"></span></div>
+	<span>#</span>
+	<span style="text-align:right;" th:text="${5337543855L - user.userId}"></span>
+		<div style="font-size:20px;font-weight:bold;border-top:2px solid green;">Good afternoon, <span th:text="${user.username}"></span></div>
 		<br />
 		<br />
-		<div>Account Balance: $<span th:text="${user.defaultCurrency}"></span><span th:text="${user.credit}"></span></div>
+		<br />
+		<br />
+		<div style="font-size:50px;">$<span th:text="${user.defaultCurrency}"></span><span th:text="${user.credit}"></span></div>
 		<br />
 		<br />
 		<div>
-			<a href="#">Deposit</a> &nbsp; &nbsp;
-			<a href="#">Transfer to Bank</a> &nbsp; &nbsp;
-			<a href="#">View Transaction History</a>
+			<a href="#">Add Card</a> &nbsp; &nbsp;
+			<a href="#">Link a Bank</a> &nbsp; &nbsp;
+			<a href="#">Modify e-Transfer Email</a>
 		</div>
+		
+		<div>
+			<h2 th:if="${transactions != null}">Transaction History</h2>
+		<table>
+			<tr th:if="${transactions.isEmpty() != true}">
+				<th>ID</th>
+				<th>Type</th>
+				<th>Amount</th>
+				<th>Date</th>
+			</tr>
+			<tr th:each="transaction : ${transactions}">
+				<td th:text="${transaction.transactionId}"></td>
+				<td th:text="|${transaction.type}|"></td>
+				<td th:inline="text">[[${transaction.amount}]]</td>
+				<td th:text="${transaction.timestamp}"></td>
+			</tr>
+			
+		</table>
+		<span th:unless="${transactions.isEmpty() != true}">No transactions recorded yet.</span>
+		</div>
+		
 	</div>
 </div>
 

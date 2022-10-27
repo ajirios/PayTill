@@ -1,5 +1,6 @@
 package com.paytill.PayTill.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class TransactionService
 	public List<Transaction> findAllByUserId(Long userId)
 	
 	{
-		return this.transactionRepository.findAll();
+		return this.transactionRepository.findAllByUser(userId);
 	}
 	
 	public void save(Transaction transaction)
@@ -60,7 +61,7 @@ public class TransactionService
 		transaction.setStatementdescriptor(transactionDto.getStatementdescriptor());
 		transaction.setTracking(transactionDto.getTracking());
 		transaction.setType(transactionDto.getType());
-		//transaction.setTimestamp(transactionDto.getTimestamp());
+		transaction.setTimestamp(LocalDateTime.parse(transactionDto.getTimestamp()));
 		
 		User user = this.userService.findById(transactionDto.getUserid());
 		Double balance = user.getCredit();
@@ -88,7 +89,7 @@ public class TransactionService
 		transaction.setStatementdescriptor(transactionDto.getStatementdescriptor());
 		transaction.setTracking(transactionDto.getTracking());
 		transaction.setType(transactionDto.getType());
-		//transaction.setTimestamp(transactionDto.getTimestamp());
+		transaction.setTimestamp(LocalDateTime.parse(transactionDto.getTimestamp()));
 		
 		User user = this.userService.findById(transactionDto.getUserid());
 		Double balance = user.getCredit();

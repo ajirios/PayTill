@@ -57,7 +57,7 @@ public class TransactionReceiverService
 			return "send";
 		}
 
-		if (textMessage.toLowerCase().contains("deposit") || textMessage.toLowerCase().contains("load"))
+		if (textMessage.toLowerCase().contains("deposit") || textMessage.toLowerCase().contains("load") || textMessage.toLowerCase().contains("add"))
 			
 		{
 			return "deposit";
@@ -87,7 +87,7 @@ public class TransactionReceiverService
 			//transactionDto.setUserid(null);
 		}
 
-		if (textMessage.toLowerCase().contains("deposit") || textMessage.toLowerCase().contains("load"))
+		if (textMessage.toLowerCase().contains("deposit") || textMessage.toLowerCase().contains("load") || textMessage.toLowerCase().contains("add"))
 			
 		{
 			transactionDto.setType("deposit");

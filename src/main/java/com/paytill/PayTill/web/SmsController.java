@@ -58,8 +58,6 @@ public class SmsController
 			
 			return transactionResult;
 		}
-		
-		
 		return "Thanks for replying!";
 	}
 }

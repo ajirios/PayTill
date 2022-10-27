@@ -2,16 +2,35 @@ package com.paytill.PayTill.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TransactionDTO implements Serializable
 
 {
+	private static final long serialVersionUID = -4216761241462078615L;
+	
+	@JsonProperty("userId")
 	private Long userid;
+	
+	@JsonProperty("tracking")
 	private String tracking;
+	
+	@JsonProperty("currency")
 	private String currency;
+	
+	@JsonProperty("amount")
 	private Long amount;
+	
+	@JsonProperty("type")
 	private String type;
+	
+	@JsonProperty("route")
 	private String route;
+	
+	@JsonProperty("statementdescriptor")
 	private String statementdescriptor;
+	
+	@JsonProperty("timestamp")
 	private String timestamp;
 	
 	public TransactionDTO()

@@ -6,11 +6,11 @@ html, body
 
 .drawer
 {
-	background-color: #eee;
+	background-color: green;
 	width: 250px;
 	height: 1000px;
 	padding: 40px;
-	color: #aaa;
+	color: #00cc00;
 	float: left;
 }
 
@@ -19,5 +19,32 @@ html, body
 	width: calc(100% - 250px);
 	height: 1000px;
 	padding: 50px;
+	overflow: scroll;
 	float: left;
+}
+
+.link:hover, .current
+{
+	color: white;
+}
+
+.logout
+{
+	margin-top:300px;
+}
+
+table td {
+	width:200px;
+	padding: 5px;
+}
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+table th {
+	width: 200px;
+  color: white;
+  background-color: black;
 }
